@@ -44,4 +44,4 @@ SKU → Store → Region
 
 ## How to Run
 ```bash
-python hierarchical_time_series_full_project.py
+python_hierarchical_time_series_full_project.py
