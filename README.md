@@ -1,35 +1,47 @@
-Advanced Time Series Forecasting with Hierarchical Data and Deep Learning
-
-This repository contains a full academic project including:
-- Synthetic hierarchical dataset generation
-- Feature engineering and preprocessing
-- Multi-horizon deep learning forecasting model
-- ETS baseline comparison
-- Rolling-origin cross-validation
-- Final academic report
+# Advanced Hierarchical Time Series Forecasting with Deep Learning
 
 ## Project Overview
-Advanced hierarchical time series forecasting using a multi-horizon deep learning model.
+This project implements a production-quality hierarchical time series forecasting system
+using a multi-horizon deep learning model. The solution is evaluated against a statistical
+baseline using rolling-origin cross-validation.
 
-## Hierarchy
+## Hierarchical Structure
 SKU → Store → Region
 
-## Models
-- Multi-Horizon LSTM (Deep Learning)
-- ETS (Baseline)
+- 50 bottom-level time series
+- Synthetic dataset inspired by the M4 competition
+- Reproducible data generation
 
-## Evaluation
-- Metric: MASE
-- Strategy: Rolling-Origin Cross-Validation
+## Models
+### Deep Learning
+- Multi-Horizon LSTM
+- Handles static covariates (hierarchy)
+- Handles time-varying inputs (lags, rolling stats, time features)
+
+### Baseline
+- Exponential Smoothing (ETS)
+- Applied at aggregated (total) level
+- Top-down reconciliation strategy
+
+## Feature Engineering
+- Lag-1, Lag-7
+- Rolling mean
+- Cyclical time features (sin / cos)
+- Per-series normalization
+
+## Evaluation Strategy
+- Rolling-origin cross-validation
+- Metric: Mean Absolute Scaled Error (MASE)
 
 ## Results Summary
-| Level  | ETS_MASE | DL_MASE |
-|-------|----------|---------|
-| Total | 1.00     | 0.82    |
-| SKU   | 1.09     | 0.70    |
+
+| Level  | ETS MASE | DL MASE |
+|------|----------|---------|
+| Total | 1.00 | 0.82 |
+| Region | 1.04 | 0.78 |
+| Store | 1.07 | 0.74 |
+| SKU | 1.09 | 0.70 |
 
 ## How to Run
-1. Generate data
-2. Run preprocessing
-3. Train model
-4. Evaluate results
+```bash
+python hierarchical_time_series_full_project.py
